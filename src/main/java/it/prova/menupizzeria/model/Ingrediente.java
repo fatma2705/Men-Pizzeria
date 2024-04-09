@@ -1,6 +1,7 @@
 package it.prova.menupizzeria.model;
 
 public class Ingrediente {
+	private Long id;
 	private String nome;
 	private boolean disponibile;
 	
@@ -10,10 +11,11 @@ public class Ingrediente {
 	}
 
 
-	public Ingrediente(String nome, boolean disponibile) {
+	public Ingrediente(Long id,String nome, boolean disponibile) {
 		
 		this.nome = nome;
 		this.disponibile = disponibile;
+		this.id = id;
 	}
 
 
@@ -35,14 +37,25 @@ public class Ingrediente {
 	public void setDisponibile(boolean disponibile) {
 		this.disponibile = disponibile;
 	}
+	
+	
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 
 	@Override
 	public String toString() {
-		return "Ingrediente [nome=" + nome + ", disponibile=" + disponibile + "]";
+		return "Ingrediente [id=" + id + ", nome=" + nome + ", disponibile=" + disponibile + "]";
 	}
-	
-	
+
+
+
 	
 	
 	

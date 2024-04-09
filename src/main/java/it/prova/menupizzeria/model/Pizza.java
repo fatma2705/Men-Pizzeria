@@ -3,6 +3,7 @@ package it.prova.menupizzeria.model;
 import java.util.List;
 
 public class Pizza {
+	private Long id;
 	private List<Ingrediente> ingredienti;
 	private float prezzo;
 	private String  nome;
@@ -15,7 +16,8 @@ public class Pizza {
 	}
 
 
-	public Pizza(List<Ingrediente> ingredienti, float prezzo, String nome, boolean custom) {
+	public Pizza(Long id,List<Ingrediente> ingredienti, float prezzo, String nome, boolean custom) {
+		this.id = id;
 		this.ingredienti = ingredienti;
 		this.prezzo = prezzo;
 		this.nome = nome;
@@ -61,16 +63,27 @@ public class Pizza {
 	public void setCustom(boolean custom) {
 		this.custom = custom;
 	}
+	
+	
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 
 	@Override
 	public String toString() {
-		return "Pizza [ingredienti=" + ingredienti + ", prezzo=" + prezzo + ", nome=" + nome + ", custom=" + custom
-				+ "]";
+		return "Pizza [id=" + id + ", ingredienti=" + ingredienti + ", prezzo=" + prezzo + ", nome=" + nome
+				+ ", custom=" + custom + "]";
 	}
-	
-	
-	
+
+
 	
 	
 	
