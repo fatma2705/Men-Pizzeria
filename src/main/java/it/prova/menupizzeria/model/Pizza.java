@@ -1,14 +1,41 @@
 package it.prova.menupizzeria.model;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+
+
+@Entity
+@Table(name = "pizza")
 
 public class Pizza {
+	
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Long id;
-	private List<Ingrediente> ingredienti;
+	@Column(name = "prezzo")
 	private float prezzo;
+	@Column(name = "nome")
 	private String  nome;
+	@Column(name= "custom")
 	private boolean custom;
 	
+	
+	
+	@ManyToMany
+	@JoinTable(name = "pizza_ingrediente", joinColumns = @JoinColumn(name = "id_pizza", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_ingrediente", referencedColumnName = "id"))
+	private Set<Pizza> ruoli = new HashSet<>(0);
 	
 	public Pizza() {
 		
@@ -16,24 +43,16 @@ public class Pizza {
 	}
 
 
-	public Pizza(Long id,List<Ingrediente> ingredienti, float prezzo, String nome, boolean custom) {
+	public Pizza(Long id, float prezzo, String nome, boolean custom) {
 		this.id = id;
-		this.ingredienti = ingredienti;
+		
 		this.prezzo = prezzo;
 		this.nome = nome;
 		this.custom = custom;
 	}
 
 
-	public List<Ingrediente> getIngredienti() {
-		return ingredienti;
-	}
-
-
-	public void setIngredienti(List<Ingrediente> ingredienti) {
-		this.ingredienti = ingredienti;
-	}
-
+	
 
 	public float getPrezzo() {
 		return prezzo;
@@ -79,7 +98,7 @@ public class Pizza {
 
 	@Override
 	public String toString() {
-		return "Pizza [id=" + id + ", ingredienti=" + ingredienti + ", prezzo=" + prezzo + ", nome=" + nome
+		return "Pizza [id=" + id +  ", prezzo=" + prezzo + ", nome=" + nome
 				+ ", custom=" + custom + "]";
 	}
 
