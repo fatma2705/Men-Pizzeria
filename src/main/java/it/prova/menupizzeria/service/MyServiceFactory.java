@@ -1,10 +1,6 @@
 package it.prova.menupizzeria.service;
 
-import java.util.List;
-
-import it.prova.menupizzeria.dao.IngredienteDAO;
 import it.prova.menupizzeria.dao.MyDAOFactory;
-import it.prova.menupizzeria.model.Ingrediente;
 
 public class MyServiceFactory {
 	
@@ -31,12 +27,13 @@ public class MyServiceFactory {
 	
 	public static PizzaService getpizzaServiceInstance() {
 		if (pizzaServiceInstance == null) 
-			ingredienteServiceInstance = new IngredienteServiceImpl();
+			pizzaServiceInstance = new PizzaServiceImpl();
 		
 		
 		try {
-			pizzaServiceInstance.setIngredienteDAO(MyDAOFactory.getIngredienteDaoInstance());
+
 			pizzaServiceInstance.setPizzaDAO(MyDAOFactory.getPizzaDaoInstance());
+			pizzaServiceInstance.setIngredienteDAO(MyDAOFactory.getIngredienteDaoInstance());
 		} catch (Exception e) {
 			
 			e.printStackTrace();
