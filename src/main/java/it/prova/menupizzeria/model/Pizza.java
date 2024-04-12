@@ -51,9 +51,16 @@ public class Pizza {
 		this.nome = nome;
 		this.custom = custom;
 	}
+	
+	public Pizza(Long id) {
+		this.id = id;
+	}
 
 
 	
+
+	
+
 
 	public float getPrezzo() {
 		return prezzo;

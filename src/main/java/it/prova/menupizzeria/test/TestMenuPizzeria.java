@@ -16,12 +16,12 @@ public class TestMenuPizzeria {
 
 		PizzaService pizzaServiceInstance = MyServiceFactory.getpizzaServiceInstance();
 		IngredienteService ingredienteServiceInstance = MyServiceFactory.getIngredienteServiceInstance();
-		Pizza pizza = new Pizza(null, 6, "margherita", false);
+		Pizza pizza = new Pizza(1L);
 
 		try {
 			
 			
-			getPizza(pizzaServiceInstance,20L);
+//			getPizza(pizzaServiceInstance,20L);
 			
 			
 
@@ -31,7 +31,7 @@ public class TestMenuPizzeria {
 
 //			aggiornaPizza(pizzaServiceInstance, pizza);
 //
-//			rimuoviPizza(pizzaServiceInstance, pizza);
+			rimuoviPizza(pizzaServiceInstance, pizza);
 
 		} catch (Throwable e) {
 
@@ -103,6 +103,7 @@ public class TestMenuPizzeria {
 
 		try {
 			System.out.println(pizzaInstance.listElemento(id));
+			System.out.println(" --------------------------------------------------------------------");
 
 		} catch (Exception e) {
 			e.printStackTrace();
