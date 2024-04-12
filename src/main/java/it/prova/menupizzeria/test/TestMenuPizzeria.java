@@ -16,17 +16,22 @@ public class TestMenuPizzeria {
 
 		PizzaService pizzaServiceInstance = MyServiceFactory.getpizzaServiceInstance();
 		IngredienteService ingredienteServiceInstance = MyServiceFactory.getIngredienteServiceInstance();
-		Pizza pizza = new Pizza(15L, 6, "margherita", false);
+		Pizza pizza = new Pizza(null, 6, "margherita", false);
 
 		try {
+			
+			
+			getPizza(pizzaServiceInstance,20L);
+			
+			
 
-			getAllPizze(pizzaServiceInstance);
+//			getAllPizze(pizzaServiceInstance);
 
-			inserisciPizza(pizzaServiceInstance, pizza);
+//			inserisciPizza(pizzaServiceInstance, pizza);
 
-			aggiornaPizza(pizzaServiceInstance, pizza);
-
-			rimuoviPizza(pizzaServiceInstance, pizza);
+//			aggiornaPizza(pizzaServiceInstance, pizza);
+//
+//			rimuoviPizza(pizzaServiceInstance, pizza);
 
 		} catch (Throwable e) {
 
@@ -91,4 +96,18 @@ public class TestMenuPizzeria {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public static void getPizza(PizzaService pizzaInstance, Long id) {
+		System.out.println(" -----------------------Stampa Pizza con l' id : " + id + " ----------------");
+
+		try {
+			System.out.println(pizzaInstance.listElemento(id));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 }

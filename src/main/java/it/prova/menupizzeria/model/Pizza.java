@@ -5,6 +5,7 @@ import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,9 +34,9 @@ public class Pizza {
 	
 	
 	
-	@ManyToMany
+	@ManyToMany (fetch = FetchType.EAGER)
 	@JoinTable(name = "pizza_ingrediente", joinColumns = @JoinColumn(name = "id_pizza", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_ingrediente", referencedColumnName = "id"))
-	private Set<Pizza> ruoli = new HashSet<>(0);
+	private Set<Ingrediente>  ingredienti = new HashSet<>();
 	
 	public Pizza() {
 		
@@ -99,7 +100,7 @@ public class Pizza {
 	@Override
 	public String toString() {
 		return "Pizza [id=" + id +  ", prezzo=" + prezzo + ", nome=" + nome
-				+ ", custom=" + custom + "]";
+				+ ", custom=" + custom + "]" + "Ingredienti : " + ingredienti.toString() ;
 	}
 
 

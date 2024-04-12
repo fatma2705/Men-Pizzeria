@@ -18,7 +18,7 @@ public class PizzaDAOImpl implements PizzaDAO{
 
 	@Override
 	public List<Pizza> list() throws Exception {
-		return entityManager.createQuery("from pizza", Pizza.class).getResultList();	}
+		return entityManager.createQuery("from Pizza", Pizza.class).getResultList();	}
 
 	@Override
 	public Pizza get(Long id) throws Exception {

@@ -12,6 +12,7 @@ public List<Pizza> listAll() throws Exception;
 	
 	public Pizza listElemento(Long id) throws Exception;
 	
+	
 	public void inserieciElemento(Pizza pizzaInstance)throws Exception;
 	
 	public void rimuovi(Pizza pizzaInstance)throws Exception;
