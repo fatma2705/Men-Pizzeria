@@ -2,49 +2,12 @@ package it.prova.menupizzeria.test;
 
 import java.util.List;
 
-import it.prova.menupizzeria.dao.EntityManagerUtil;
+import it.prova.menupizzeria.model.Ingrediente;
 import it.prova.menupizzeria.model.Pizza;
 import it.prova.menupizzeria.service.IngredienteService;
-import it.prova.menupizzeria.service.MyServiceFactory;
 import it.prova.menupizzeria.service.PizzaService;
 
 public class TestMenuPizzeria {
-
-	public static void main(String[] args) {
-
-		System.out.println(" ---------- Inizio programma -------------");
-
-		PizzaService pizzaServiceInstance = MyServiceFactory.getpizzaServiceInstance();
-		IngredienteService ingredienteServiceInstance = MyServiceFactory.getIngredienteServiceInstance();
-		Pizza pizza = new Pizza(1L);
-
-		try {
-			
-			
-//			getPizza(pizzaServiceInstance,20L);
-			
-			
-
-//			getAllPizze(pizzaServiceInstance);
-
-//			inserisciPizza(pizzaServiceInstance, pizza);
-
-//			aggiornaPizza(pizzaServiceInstance, pizza);
-//
-			rimuoviPizza(pizzaServiceInstance, pizza);
-
-		} catch (Throwable e) {
-
-			e.printStackTrace();
-
-		} finally {
-
-			EntityManagerUtil.shutdown();
-		}
-
-		System.out.println(" --------------Fine programma pizza ----------------");
-
-	}
 
 	public static void getAllPizze(PizzaService pizzaInstance) {
 
@@ -109,6 +72,78 @@ public class TestMenuPizzeria {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	
+	
+	
+	public static void getAllIngredienti(IngredienteService ingredienteInstance) {
+		System.out.println(" ----------- Stampa tutti gli ingredienti presenti nel database -------------");
+
+		try {
+			List<Ingrediente> ingredienti = ingredienteInstance.listAll();
+			for (Ingrediente i : ingredienti) {
+				System.out.println(i.toString());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void inserisciIngrediente(IngredienteService ingredienteInstance, Ingrediente ingrediente) {
+		System.out.println(" ----------- Inserisci Ingrediente -------------");
+
+		try {
+			ingredienteInstance.inserisciElemento(ingrediente);
+			System.out.println(" ----------- Ingrediente inserito con successo ----");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public static void aggiornaIngrediente(IngredienteService ingredienteInstance, Ingrediente ingrediente) {
+		System.out.println(" -------------- Aggiorna Ingrediente  -----------");
+
+		try {
+			ingredienteInstance.aggiorna(ingrediente);
+			System.out.println(" ----------- Ingrediente aggiornato con successo ----");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public static void rimuoviIngrediente(IngredienteService ingredienteInstance, Ingrediente ingrediente) {
+		System.out.println(" -----------------------Rimuovi Ingrediente ----------------");
+
+		try {
+			ingredienteInstance.rimuovi(ingrediente);
+			System.out.println(" ----------- Ingrediente rimosso con successo ----");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public static void getIngrediente(IngredienteService ingredienteInstance, Long id) {
+		System.out.println(" -----------------------Stampa Ingrediente con l' id : " + id + " ----------------");
+
+		try {
+			System.out.println(ingredienteInstance.listElemento(id));
+			System.out.println(" --------------------------------------------------------------------");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	
 	
 	
 }

@@ -2,7 +2,9 @@ package it.prova.menupizzeria.test;
 
 import java.util.Scanner;
 
+import it.prova.menupizzeria.model.Ingrediente;
 import it.prova.menupizzeria.model.Pizza;
+import it.prova.menupizzeria.service.IngredienteService;
 import it.prova.menupizzeria.service.MyServiceFactory;
 import it.prova.menupizzeria.service.PizzaService;
 
@@ -15,16 +17,21 @@ public class TestInterfaceUtente {
 
 		while (!exit) {
 			System.out.println("Benvenuto nella tua interfaccia utente. Scegli un'opzione:");
-			System.out.println("1. Creare una pizza");
+			System.out.println("1. Aggiungere una pizza");
 			System.out.println("2. Leggere una pizza");
 			System.out.println("3. Aggiornare una pizza");
 			System.out.println("4. Eliminare una pizza");
-			System.out.println("5. Uscire");
+			System.out.println("5. Aggiungere un' ingrediente");
+			System.out.println("6. Leggere un' ingrediente");
+			System.out.println("7. Aggiornare un' ingrediente");
+			System.out.println("8. Eliminareun' ingrediente");
+			System.out.println("9. Uscire");
 
 			int choice = scanner.nextInt();
 			scanner.nextLine();
 
 			PizzaService pizzaServiceInstance = MyServiceFactory.getpizzaServiceInstance();
+			IngredienteService ingredienteServiceInstance = MyServiceFactory.getIngredienteServiceInstance();
 
 			switch (choice) {
 			case 1:
@@ -81,6 +88,53 @@ public class TestInterfaceUtente {
 
 				break;
 			case 5:
+				System.out.println("Ha scelto il quinto comando per aggiungere un' ingrediente");
+				
+				System.out.println("Inserisci il nome dell' ingrediente da aggiungere:");
+				String nomeIngrediente = scanner.nextLine();
+
+				System.out.println("Inserisci true se l' ingrediente è disponibile, false se non lo è:");
+				boolean disponibile = scanner.nextBoolean();
+				scanner.nextLine(); 
+
+				Ingrediente ingrediente = new Ingrediente(null,nomeIngrediente,disponibile);
+				TestMenuPizzeria.inserisciIngrediente(ingredienteServiceInstance, ingrediente);
+
+				break;
+			case 6:
+				System.out.println("Ha scelto il sesto comando per stampare un' ingrediente");
+				System.out.println("Inserisci L'id  dell' ingrediente da leggere:");
+				Long idIngrediente = scanner.nextLong();
+				scanner.nextLine();
+				TestMenuPizzeria.getIngrediente(ingredienteServiceInstance, idIngrediente);;
+				
+			case 7:
+				System.out.println("Ha scelto il settimo comando per aggiornare un ' ingrediente");
+				System.out.println("Inserisci L'id  dell ' ingrediente da aggiornare:");
+				Long idI = scanner.nextLong();
+				scanner.nextLine();
+	
+				System.out.println("Inserisci il nome dell' ingrediente da aggiornare:");
+				String nomeI = scanner.nextLine();
+
+				System.out.println("Inserisci true se l' ingrediente è disponibile, false se non lo è:");
+				boolean disponibileI = scanner.nextBoolean();
+				scanner.nextLine(); 
+
+				Ingrediente ingredienteInsert = new Ingrediente(idI,nomeI,disponibileI);
+				TestMenuPizzeria.aggiornaIngrediente(ingredienteServiceInstance, ingredienteInsert);
+
+				break;
+			case 8:
+				System.out.println("Ha scelto l' ottavo comando per eliminare un ' ingrediente");
+				System.out.println("Inserisci L'id  dell' ingrediente da eliminare:");
+				Long idIn = scanner.nextLong();
+				scanner.nextLine();
+				Ingrediente ingredienteE = new Ingrediente(idIn);
+				TestMenuPizzeria.rimuoviIngrediente(ingredienteServiceInstance, ingredienteE);
+
+				break;
+			case 9:
 				exit = true;
 				break;
 			default:

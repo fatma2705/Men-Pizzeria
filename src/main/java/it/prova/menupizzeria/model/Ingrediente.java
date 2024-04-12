@@ -35,6 +35,11 @@ public class Ingrediente {
 	public Ingrediente() {
 		
 	}
+	
+	
+	public Ingrediente(Long id) {
+		this.id = id;
+	}
 
 
 	public Ingrediente(Long id,String nome, boolean disponibile) {
