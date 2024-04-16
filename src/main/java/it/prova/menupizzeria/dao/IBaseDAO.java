@@ -6,7 +6,8 @@ package it.prova.menupizzeria.dao;
 	import java.util.List;
 
 
-
+	
+	
 	public interface IBaseDAO<T> {
 
 		public List<T> list() throws Exception;
