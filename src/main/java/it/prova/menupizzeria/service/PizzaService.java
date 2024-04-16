@@ -23,5 +23,9 @@ public List<Pizza> listAll() throws Exception;
 	
 	public void setIngredienteDAO(IngredienteDAO ingredienteInstance)throws Exception;
 	
+	
+	
+	
+	
 
 }

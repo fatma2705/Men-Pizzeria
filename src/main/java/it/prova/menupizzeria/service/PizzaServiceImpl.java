@@ -46,26 +46,7 @@ public class PizzaServiceImpl implements PizzaService{
 	}
 
 	
-	@Override
-	public void inserieciElemento(Pizza pizzaInstance) throws Exception {
-		EntityManager entityManager = EntityManagerUtil.getEntityManager();
-		
-		try {
-			entityManager.getTransaction().begin();
-			
-			pizzaDAOInstance.setEntityManager(entityManager);
-			
-			pizzaDAOInstance.insert(pizzaInstance);
-			entityManager.getTransaction().commit();
-		} catch (Exception e) {
-			entityManager.getTransaction().rollback();
-			e.printStackTrace();
-			throw e;
-		} finally {
-			EntityManagerUtil.closeEntityManager(entityManager);
-		}
-
-	}
+	
 	@Override
 	public void rimuovi(Pizza pizzaInstance) throws Exception {
 		EntityManager entityManager = EntityManagerUtil.getEntityManager();
@@ -118,6 +99,46 @@ public class PizzaServiceImpl implements PizzaService{
 		this.ingredienteDAOInstance = ingredienteInstance; 
 	}
 
+	
+		
+		
+		@Override
+		public void inserieciElemento(Pizza pizzaInstance) throws Exception {
+			EntityManager entityManager = EntityManagerUtil.getEntityManager();
+			
+			try {
+				if (pizzaInstance.equals(null)) {
+					System.out.println("ERRORE: dati pizza non inseriti");
+				}
+				if (pizzaInstance.getId() != null) {
+					System.out.println("ERRORE: id non  null");
+				}
+				entityManager.getTransaction().begin();
+				
+				if(pizzaDAOInstance.exist(pizzaInstance)== true) {
+					System.out.println("ERRORE: già esiste una pizza con gli stessi dati");
+				}
+				pizzaDAOInstance.setEntityManager(entityManager);
+				
+				pizzaDAOInstance.insert(pizzaInstance);
+				PizzaService pizzaService = null;
+				if (pizzaService.listElemento(pizzaInstance.getId()).getNome().equals(pizzaInstance.getNome()) &&
+						pizzaService.listElemento(pizzaInstance.getId()).getPrezzo() == (pizzaInstance.getPrezzo()) && 
+								pizzaService.listElemento(pizzaInstance.getId()).isCustom() == ((pizzaInstance.isCustom()))){
+					System.out.println(" Pizza inserita correttamente");
+				}
+				entityManager.getTransaction().commit();
+			} catch (Exception e) {
+				entityManager.getTransaction().rollback();
+				e.printStackTrace();
+				throw e;
+			} finally {
+				EntityManagerUtil.closeEntityManager(entityManager);
+			}
+
+		}
+
+	
 
 
 }

@@ -2,8 +2,11 @@ package it.prova.menupizzeria.dao;
 
 import java.util.List;
 
+
+
 import it.prova.menupizzeria.model.Pizza;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 
 public class PizzaDAOImpl implements PizzaDAO{
 	
@@ -49,6 +52,23 @@ public class PizzaDAOImpl implements PizzaDAO{
 		} entityManager.remove(entityManager.merge(pizzaInstance));
 		
 	}
+
+
+	@Override
+	public boolean exist(Pizza pizzaInstance) throws Exception {
+		Query query = entityManager.createQuery("SELECT COUNT(p) FROM Pizza p WHERE p.nome = :nomePizza AND p.prezzo = :prezzoPizza AND p.custom = :customPizza");
+		query.setParameter("nomePizza", pizzaInstance.getNome());
+		 query.setParameter("prezzoPizza", pizzaInstance.getPrezzo());
+		 query.setParameter("customPizza", pizzaInstance.isCustom());
+		 if  (query.getSingleResult() != null) {
+			 return true;
+		 }
+		 return false;
+		 
+	}
+
+
+	
 
 
 }

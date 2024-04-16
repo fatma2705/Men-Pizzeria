@@ -19,6 +19,8 @@ package it.prova.menupizzeria.dao;
 		public void insert(T o) throws Exception;
 
 		public void delete(T o) throws Exception;
+		
+		public boolean exist(T o) throws Exception;
 
 		// questo mi serve per l'injection
 		public void setEntityManager(EntityManager entityManager);

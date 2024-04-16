@@ -2,6 +2,7 @@ package it.prova.menupizzeria.test;
 
 import java.util.Scanner;
 
+import it.prova.menupizzeria.exception.PizzeriaExceptions;
 import it.prova.menupizzeria.model.Ingrediente;
 import it.prova.menupizzeria.model.Pizza;
 import it.prova.menupizzeria.service.IngredienteService;
@@ -10,8 +11,9 @@ import it.prova.menupizzeria.service.PizzaService;
 
 public class TestInterfaceUtente {
 
-	public static void main(String[] args) {
-
+	public static void main(String[] args) throws Exception {
+		
+		
 		Scanner scanner = new Scanner(System.in);
 		boolean exit = false;
 
@@ -73,7 +75,9 @@ public class TestInterfaceUtente {
 				System.out.println("Inserisci true se la pizza è custom, false se non lo è:");
 				boolean customP = scanner.nextBoolean();
 				scanner.nextLine(); 
-
+				
+				
+				
 				Pizza pizzaP = new Pizza(idP, prezzoP, nomeP, customP);
 				TestMenuPizzeria.aggiornaPizza(pizzaServiceInstance, pizzaP);
 

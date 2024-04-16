@@ -5,5 +5,8 @@ import it.prova.menupizzeria.model.Pizza;
 public interface PizzaDAO extends IBaseDAO<Pizza>{
 	
 	
+	
+	
+	
 
 }
