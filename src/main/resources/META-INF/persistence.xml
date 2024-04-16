@@ -6,8 +6,8 @@
         version="2.2">
 	<persistence-unit name="my_persistence_unit" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		<class>it.manytomanyjpamaven.model.Utente</class>
-		<class>it.manytomanyjpamaven.model.Ruolo</class>
+		<class>it.prova.menupizzeria.Ingrediente</class>
+		<class>it.prova.menupizzeria.Pizza</class>
 		<properties>
 			<!-- setup con MySql -->
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
