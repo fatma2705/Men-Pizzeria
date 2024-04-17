@@ -84,21 +84,40 @@ public class TestInterfaceUtente {
 			case 3:
 				System.out.println("Ha scelto il terzo comando per aggiornare una pizza");
 				System.out.println("Inserisci L'id  della pizza da aggiornare:");
-				Long idP = scanner.nextLong();
+				Long idP = null;
+				try {
+					idP = scanner.nextLong();
+				} catch(InputMismatchException e){
+					System.out.println("ERRORE : non è  stata inserita una stringa ");
+					System.exit(0);
+					}
 				scanner.nextLine();
-				System.out.println("Inserisci il prezzo della pizza da aggiornare:");
-				float prezzoP = scanner.nextFloat();
+				System.out.println("Inserisci il nuovo prezzo della pizza da aggiornare:");
+				Float prezzoP = null;
+				try {
+					prezzoP = scanner.nextFloat();
+				} catch(InputMismatchException e){
+					System.out.println("ERRORE : non è  stato inserito un float " );
+					System.exit(0);
+				}
 				scanner.nextLine(); 
-
-				System.out.println("Inserisci il nome della pizza da aggiornare:");
-				String nomeP = scanner.nextLine();
-
+				System.out.println("Inserisci il nuovo nome della pizza da aggiornare:");
+				String nomeP = "";
+				try {
+					nomeP = scanner.nextLine();
+				} catch(InputMismatchException e){
+					System.out.println("ERRORE : non è  stata inserita una stringa ");
+					System.exit(0);
+				}
 				System.out.println("Inserisci true se la pizza è custom, false se non lo è:");
-				boolean customP = scanner.nextBoolean();
+				boolean customP = false ;
+				try {
+					customP = scanner.nextBoolean();
+				} catch(InputMismatchException e){
+					System.out.println("ERRORE : non è  stato inserito un boolean ");
+					System.exit(0);
+				}
 				scanner.nextLine(); 
-				
-				
-				
 				Pizza pizzaP = new Pizza(idP, prezzoP, nomeP, customP);
 				TestMenuPizzeria.aggiornaPizza(pizzaServiceInstance, pizzaP);
 
