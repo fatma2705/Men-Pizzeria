@@ -52,11 +52,24 @@ public class PizzaServiceImpl implements PizzaService{
 		EntityManager entityManager = EntityManagerUtil.getEntityManager();
 		
 		try {
+			if (pizzaInstance.equals(null)) {
+				System.out.println("ERRORE: dati pizza non inseriti");
+				System.exit(0);
+			}
 			entityManager.getTransaction().begin();
 			
 			pizzaDAOInstance.setEntityManager(entityManager);
-			
+			if (!(pizzaDAOInstance.exist(pizzaInstance))) {
+				System.out.println("ERRORE: Non esiste una pizza con questi dati ");
+				System.exit(0);
+			}
+
 			pizzaDAOInstance.delete(pizzaInstance);
+			if(!(pizzaDAOInstance.exist(pizzaInstance))) {
+				System.out.println("Pizza rimossa con successo");
+				
+			}
+
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();

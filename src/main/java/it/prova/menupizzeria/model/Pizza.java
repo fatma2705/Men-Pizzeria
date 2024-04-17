@@ -55,12 +55,21 @@ public class Pizza {
 	public Pizza(Long id) {
 		this.id = id;
 	}
+	
+	public Pizza(Long id, String nome, boolean custom) {
+		this.id = id;
+		this.nome = nome;
+		this.custom = custom;
+	}
+
 
 
 	
 
 	
 
+
+	
 
 	public float getPrezzo() {
 		return prezzo;

@@ -88,7 +88,7 @@ public class TestInterfaceUtente {
 				try {
 					idP = scanner.nextLong();
 				} catch(InputMismatchException e){
-					System.out.println("ERRORE : non è  stata inserita una stringa ");
+					System.out.println("ERRORE : non è  stato inserito un long ");
 					System.exit(0);
 					}
 				scanner.nextLine();
@@ -125,9 +125,32 @@ public class TestInterfaceUtente {
 			case 4:
 				System.out.println("Ha scelto il quarto comando per eliminare una pizza");
 				System.out.println("Inserisci L'id  della pizza da eliminare:");
-				Long idp = scanner.nextLong();
+				Long idp = null;
+				try {
+					idp = scanner.nextLong();
+				} catch(InputMismatchException e){
+					System.out.println("ERRORE : non è  stato inserito un Long ");
+					System.exit(0);
+					}
+				scanner.nextLine(); 
+				System.out.println("Inserisci il  nome della pizza da eliminare:");
+				String nomep = "";
+				try {
+					nomep = scanner.nextLine();
+				} catch(InputMismatchException e){
+					System.out.println("ERRORE : non è  stata inserita una stringa ");
+					System.exit(0);
+				}
+				System.out.println("Inserisci true se la pizza è custom, false se non lo è:");
+				boolean customp = false ;
+				try {
+					customp = scanner.nextBoolean();
+				} catch(InputMismatchException e){
+					System.out.println("ERRORE : non è  stato inserito un boolean ");
+					System.exit(0);
+				}
 				scanner.nextLine();
-				Pizza pizzap = new Pizza(idp);
+				Pizza pizzap = new Pizza(idp,nomep,customp);
 				TestMenuPizzeria.rimuoviPizza(pizzaServiceInstance, pizzap);
 
 				break;
