@@ -28,9 +28,9 @@ public class TestMenuPizzeria {
 		System.out.println(" ----------- Test Inserisci pizza -------------");
 
 		try {
-				pizzaInstance.inserieciElemento(pizza);
-			
-				System.out.println(" ----------- Test Pizza inserita con successo ----");
+			pizzaInstance.inserieciElemento(pizza);
+
+			System.out.println(" ----------- Test Pizza inserita con successo ----");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,8 +60,7 @@ public class TestMenuPizzeria {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	public static void getPizza(PizzaService pizzaInstance, Long id) {
 		System.out.println(" -----------------------Stampa Pizza con l' id : " + id + " ----------------");
 
@@ -73,12 +72,7 @@ public class TestMenuPizzeria {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	
-	
-	
+
 	public static void getAllIngredienti(IngredienteService ingredienteInstance) {
 		System.out.println(" ----------- Stampa tutti gli ingredienti presenti nel database -------------");
 
@@ -92,7 +86,7 @@ public class TestMenuPizzeria {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void inserisciIngrediente(IngredienteService ingredienteInstance, Ingrediente ingrediente) {
 		System.out.println(" ----------- Inserisci Ingrediente -------------");
 
@@ -104,8 +98,7 @@ public class TestMenuPizzeria {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	public static void aggiornaIngrediente(IngredienteService ingredienteInstance, Ingrediente ingrediente) {
 		System.out.println(" -------------- Aggiorna Ingrediente  -----------");
 
@@ -117,8 +110,7 @@ public class TestMenuPizzeria {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	public static void rimuoviIngrediente(IngredienteService ingredienteInstance, Ingrediente ingrediente) {
 		System.out.println(" -----------------------Rimuovi Ingrediente ----------------");
 
@@ -130,8 +122,7 @@ public class TestMenuPizzeria {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	public static void getIngrediente(IngredienteService ingredienteInstance, Long id) {
 		System.out.println(" -----------------------Stampa Ingrediente con l' id : " + id + " ----------------");
 
@@ -144,7 +135,4 @@ public class TestMenuPizzeria {
 		}
 	}
 
-	
-	
-	
 }

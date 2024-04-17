@@ -8,19 +8,22 @@ import it.prova.menupizzeria.dao.PizzaDAO;
 import it.prova.menupizzeria.model.Pizza;
 import jakarta.persistence.EntityManager;
 
-public class PizzaServiceImpl implements PizzaService{
-	
+public class PizzaServiceImpl implements PizzaService {
+
 	private IngredienteDAO ingredienteDAOInstance;
 	private PizzaDAO pizzaDAOInstance;
 
 	@Override
 	public List<Pizza> listAll() throws Exception {
 		EntityManager entityManager = EntityManagerUtil.getEntityManager();
-		
+
 		try {
 			pizzaDAOInstance.setEntityManager(entityManager);
-			
-			return 			pizzaDAOInstance.list();
+			if (pizzaDAOInstance.list().isEmpty()) {
+				System.out.println("Database vuoto nulla da stampare");
+				System.exit(0);
+			}
+			return pizzaDAOInstance.list();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -32,11 +35,17 @@ public class PizzaServiceImpl implements PizzaService{
 	@Override
 	public Pizza listElemento(Long id) throws Exception {
 		EntityManager entityManager = EntityManagerUtil.getEntityManager();
-		
+
 		try {
+			if (id == null) {
+				System.out.println("ID non inserito");
+				System.exit(0);
+			}
 			pizzaDAOInstance.setEntityManager(entityManager);
-			
-			return 			pizzaDAOInstance.get(id);
+			if (pizzaDAOInstance.get(id) == null) {
+				System.out.println("Non esiste una pizza con questo id");
+			}
+			return pizzaDAOInstance.get(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -45,30 +54,25 @@ public class PizzaServiceImpl implements PizzaService{
 		}
 	}
 
-	
-	
 	@Override
 	public void rimuovi(Pizza pizzaInstance) throws Exception {
 		EntityManager entityManager = EntityManagerUtil.getEntityManager();
-		
+
 		try {
 			if (pizzaInstance.equals(null)) {
-				System.out.println("ERRORE: dati pizza non inseriti");
+				System.out.println("ERRORE: id pizza non inserito");
 				System.exit(0);
 			}
 			entityManager.getTransaction().begin();
-			
+
 			pizzaDAOInstance.setEntityManager(entityManager);
-			if (!(pizzaDAOInstance.exist(pizzaInstance))) {
-				System.out.println("ERRORE: Non esiste una pizza con questi dati ");
+			if (pizzaDAOInstance.get(pizzaInstance.getId()) == null) {
+				System.out.println("ERRORE: Non esiste una pizza con questo id ");
 				System.exit(0);
 			}
 
 			pizzaDAOInstance.delete(pizzaInstance);
-			if(!(pizzaDAOInstance.exist(pizzaInstance))) {
-				System.out.println("Pizza rimossa con successo");
-				
-			}
+			System.out.println("Pizza rimossa con successo");
 
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
@@ -83,15 +87,15 @@ public class PizzaServiceImpl implements PizzaService{
 
 	@Override
 	public void aggiorna(Pizza pizzaInstance) throws Exception {
-	EntityManager entityManager = EntityManagerUtil.getEntityManager();
-		
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
 		try {
 			if (pizzaInstance.equals(null)) {
 				System.out.println("ERRORE: dati pizza non inseriti");
 				System.exit(0);
 			}
 			entityManager.getTransaction().begin();
-			
+
 			pizzaDAOInstance.setEntityManager(entityManager);
 			if (!(pizzaDAOInstance.exist(pizzaInstance))) {
 				System.out.println("ERRORE: Non esiste una pizza con questi dati ");
@@ -99,9 +103,9 @@ public class PizzaServiceImpl implements PizzaService{
 			}
 
 			pizzaDAOInstance.update(pizzaInstance);
-			if(pizzaDAOInstance.exist(pizzaInstance)) {
+			if (pizzaDAOInstance.exist(pizzaInstance)) {
 				System.out.println("Pizza aggiornata con successo");
-				
+
 			}
 
 			entityManager.getTransaction().commit();
@@ -114,58 +118,53 @@ public class PizzaServiceImpl implements PizzaService{
 		}
 
 	}
+
 	@Override
 	public void setPizzaDAO(PizzaDAO pizzaInstance) throws Exception {
 		this.pizzaDAOInstance = pizzaInstance;
-		
+
 	}
 
 	@Override
 	public void setIngredienteDAO(IngredienteDAO ingredienteInstance) throws Exception {
-		this.ingredienteDAOInstance = ingredienteInstance; 
+		this.ingredienteDAOInstance = ingredienteInstance;
 	}
 
-	
-		
-		
-		@Override
-		public void inserieciElemento(Pizza pizzaInstance) throws Exception {
-			EntityManager entityManager = EntityManagerUtil.getEntityManager();
-			
-			try {
-				if (pizzaInstance.equals(null)) {
-					System.out.println("ERRORE: dati pizza non inseriti");
-					System.exit(0);
-				}
-				if (pizzaInstance.getId() != null) {
-					System.out.println("ERRORE: id non  null");
-					System.exit(0);
-				}
-				entityManager.getTransaction().begin();
-				
-				if(pizzaDAOInstance.exist(pizzaInstance)) {
-					System.out.println("ERRORE: già esiste una pizza con gli stessi dati");
-					System.exit(0);
-				}
-				pizzaDAOInstance.setEntityManager(entityManager);
-				
-				pizzaDAOInstance.insert(pizzaInstance);
-				
-				if(pizzaDAOInstance.exist(pizzaInstance)) {
-					System.out.println("Pizza Inserita correttamente");
-				}
-				entityManager.getTransaction().commit();
-			} catch (Exception e) {
-				entityManager.getTransaction().rollback();
-				e.printStackTrace();
-				throw e;
-			} finally {
-				EntityManagerUtil.closeEntityManager(entityManager);
-			}
+	@Override
+	public void inserieciElemento(Pizza pizzaInstance) throws Exception {
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
+		try {
+			if (pizzaInstance.equals(null)) {
+				System.out.println("ERRORE: dati pizza non inseriti");
+				System.exit(0);
+			}
+			if (pizzaInstance.getId() != null) {
+				System.out.println("ERRORE: id non  null");
+				System.exit(0);
+			}
+			entityManager.getTransaction().begin();
+
+			if (pizzaDAOInstance.exist(pizzaInstance)) {
+				System.out.println("ERRORE: già esiste una pizza con gli stessi dati");
+				System.exit(0);
+			}
+			pizzaDAOInstance.setEntityManager(entityManager);
+
+			pizzaDAOInstance.insert(pizzaInstance);
+
+			if (pizzaDAOInstance.exist(pizzaInstance)) {
+				System.out.println("Pizza Inserita correttamente");
+			}
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
 		}
 
-	
-
+	}
 
 }

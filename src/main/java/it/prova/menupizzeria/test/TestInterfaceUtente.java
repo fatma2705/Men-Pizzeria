@@ -12,8 +12,7 @@ import it.prova.menupizzeria.service.PizzaService;
 public class TestInterfaceUtente {
 
 	public static void main(String[] args) throws Exception {
-		
-		
+
 		Scanner scanner = new Scanner(System.in);
 		boolean exit = false;
 
@@ -42,33 +41,33 @@ public class TestInterfaceUtente {
 				Float prezzo = null;
 				try {
 					prezzo = scanner.nextFloat();
-				} catch(InputMismatchException e){
-					System.out.println("ERRORE : non è  stato inserito un float " );
+				} catch (InputMismatchException e) {
+					System.out.println("ERRORE : non è  stato inserito un float ");
 					System.exit(0);
 				}
-				scanner.nextLine(); 
+				scanner.nextLine();
 
 				System.out.println("Inserisci il nome della pizza da creare:");
-				
+
 				String nome = "";
 				try {
 					nome = scanner.nextLine();
-				} catch(InputMismatchException e){
+				} catch (InputMismatchException e) {
 					System.out.println("ERRORE : non è  stata inserita una stringa ");
 					System.exit(0);
-					
+
 				}
 
 				System.out.println("Inserisci true se la pizza è custom, false se non lo è:");
-				boolean custom = false ;
+				boolean custom = false;
 				try {
 					custom = scanner.nextBoolean();
-				} catch(InputMismatchException e){
+				} catch (InputMismatchException e) {
 					System.out.println("ERRORE : non è  stato inserito un boolean ");
 					System.exit(0);
-					
+
 				}
-				scanner.nextLine(); 
+				scanner.nextLine();
 
 				Pizza pizza = new Pizza(null, prezzo, nome, custom);
 				TestMenuPizzeria.inserisciPizza(pizzaServiceInstance, pizza);
@@ -77,47 +76,53 @@ public class TestInterfaceUtente {
 			case 2:
 				System.out.println("Ha scelto il secondo comando per stampare una pizza");
 				System.out.println("Inserisci L'id  della pizza da leggere:");
-				Long id = scanner.nextLong();
+				Long id = null;
+				try {
+					id = scanner.nextLong();
+				} catch (InputMismatchException e) {
+					System.out.println("ERRORE : non è  stato inserito un long ");
+					System.exit(0);
+				}
 				scanner.nextLine();
 				TestMenuPizzeria.getPizza(pizzaServiceInstance, id);
-				
+
 			case 3:
 				System.out.println("Ha scelto il terzo comando per aggiornare una pizza");
 				System.out.println("Inserisci L'id  della pizza da aggiornare:");
 				Long idP = null;
 				try {
 					idP = scanner.nextLong();
-				} catch(InputMismatchException e){
+				} catch (InputMismatchException e) {
 					System.out.println("ERRORE : non è  stato inserito un long ");
 					System.exit(0);
-					}
+				}
 				scanner.nextLine();
 				System.out.println("Inserisci il nuovo prezzo della pizza da aggiornare:");
 				Float prezzoP = null;
 				try {
 					prezzoP = scanner.nextFloat();
-				} catch(InputMismatchException e){
-					System.out.println("ERRORE : non è  stato inserito un float " );
+				} catch (InputMismatchException e) {
+					System.out.println("ERRORE : non è  stato inserito un float ");
 					System.exit(0);
 				}
-				scanner.nextLine(); 
+				scanner.nextLine();
 				System.out.println("Inserisci il nuovo nome della pizza da aggiornare:");
 				String nomeP = "";
 				try {
 					nomeP = scanner.nextLine();
-				} catch(InputMismatchException e){
+				} catch (InputMismatchException e) {
 					System.out.println("ERRORE : non è  stata inserita una stringa ");
 					System.exit(0);
 				}
 				System.out.println("Inserisci true se la pizza è custom, false se non lo è:");
-				boolean customP = false ;
+				boolean customP = false;
 				try {
 					customP = scanner.nextBoolean();
-				} catch(InputMismatchException e){
+				} catch (InputMismatchException e) {
 					System.out.println("ERRORE : non è  stato inserito un boolean ");
 					System.exit(0);
 				}
-				scanner.nextLine(); 
+				scanner.nextLine();
 				Pizza pizzaP = new Pizza(idP, prezzoP, nomeP, customP);
 				TestMenuPizzeria.aggiornaPizza(pizzaServiceInstance, pizzaP);
 
@@ -128,43 +133,26 @@ public class TestInterfaceUtente {
 				Long idp = null;
 				try {
 					idp = scanner.nextLong();
-				} catch(InputMismatchException e){
+				} catch (InputMismatchException e) {
 					System.out.println("ERRORE : non è  stato inserito un Long ");
-					System.exit(0);
-					}
-				scanner.nextLine(); 
-				System.out.println("Inserisci il  nome della pizza da eliminare:");
-				String nomep = "";
-				try {
-					nomep = scanner.nextLine();
-				} catch(InputMismatchException e){
-					System.out.println("ERRORE : non è  stata inserita una stringa ");
-					System.exit(0);
-				}
-				System.out.println("Inserisci true se la pizza è custom, false se non lo è:");
-				boolean customp = false ;
-				try {
-					customp = scanner.nextBoolean();
-				} catch(InputMismatchException e){
-					System.out.println("ERRORE : non è  stato inserito un boolean ");
 					System.exit(0);
 				}
 				scanner.nextLine();
-				Pizza pizzap = new Pizza(idp,nomep,customp);
+				Pizza pizzap = new Pizza(idp);
 				TestMenuPizzeria.rimuoviPizza(pizzaServiceInstance, pizzap);
 
 				break;
 			case 5:
 				System.out.println("Ha scelto il quinto comando per aggiungere un' ingrediente");
-				
+
 				System.out.println("Inserisci il nome dell' ingrediente da aggiungere:");
 				String nomeIngrediente = scanner.nextLine();
 
 				System.out.println("Inserisci true se l' ingrediente è disponibile, false se non lo è:");
 				boolean disponibile = scanner.nextBoolean();
-				scanner.nextLine(); 
+				scanner.nextLine();
 
-				Ingrediente ingrediente = new Ingrediente(null,nomeIngrediente,disponibile);
+				Ingrediente ingrediente = new Ingrediente(null, nomeIngrediente, disponibile);
 				TestMenuPizzeria.inserisciIngrediente(ingredienteServiceInstance, ingrediente);
 
 				break;
@@ -173,22 +161,23 @@ public class TestInterfaceUtente {
 				System.out.println("Inserisci L'id  dell' ingrediente da leggere:");
 				Long idIngrediente = scanner.nextLong();
 				scanner.nextLine();
-				TestMenuPizzeria.getIngrediente(ingredienteServiceInstance, idIngrediente);;
-				
+				TestMenuPizzeria.getIngrediente(ingredienteServiceInstance, idIngrediente);
+				;
+
 			case 7:
 				System.out.println("Ha scelto il settimo comando per aggiornare un ' ingrediente");
 				System.out.println("Inserisci L'id  dell ' ingrediente da aggiornare:");
 				Long idI = scanner.nextLong();
 				scanner.nextLine();
-	
+
 				System.out.println("Inserisci il nome dell' ingrediente da aggiornare:");
 				String nomeI = scanner.nextLine();
 
 				System.out.println("Inserisci true se l' ingrediente è disponibile, false se non lo è:");
 				boolean disponibileI = scanner.nextBoolean();
-				scanner.nextLine(); 
+				scanner.nextLine();
 
-				Ingrediente ingredienteInsert = new Ingrediente(idI,nomeI,disponibileI);
+				Ingrediente ingredienteInsert = new Ingrediente(idI, nomeI, disponibileI);
 				TestMenuPizzeria.aggiornaIngrediente(ingredienteServiceInstance, ingredienteInsert);
 
 				break;
