@@ -51,11 +51,11 @@ public class IngredienteDAOImpl implements IngredienteDAO {
 
 	}
 
-
 	@Override
 	public boolean exist(Ingrediente ingredienteInstance) throws Exception {
 		Query query = entityManager.createQuery(
-				"SELECT COUNT(i) FROM Ingrediente i WHERE i.nome = :nomeIngrediente  AND i.disponibile = :DisponibileIngrediente", Long.class);
+				"SELECT COUNT(i) FROM Ingrediente i WHERE i.nome = :nomeIngrediente  AND i.disponibile = :DisponibileIngrediente",
+				Long.class);
 		query.setParameter("nomeIngrediente", ingredienteInstance.getNome());
 		query.setParameter("customIngrediente", ingredienteInstance.isDisponibile());
 		Long result = (Long) query.getSingleResult();

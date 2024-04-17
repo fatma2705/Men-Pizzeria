@@ -146,10 +146,21 @@ public class TestInterfaceUtente {
 				System.out.println("Ha scelto il quinto comando per aggiungere un' ingrediente");
 
 				System.out.println("Inserisci il nome dell' ingrediente da aggiungere:");
-				String nomeIngrediente = scanner.nextLine();
-
+				String nomeIngrediente = null;
+				try {
+					nomeIngrediente = scanner.nextLine();
+				} catch (InputMismatchException e) {
+					System.out.println("ERRORE : non è  stata inserita una stringa ");
+					System.exit(0);
+				}
 				System.out.println("Inserisci true se l' ingrediente è disponibile, false se non lo è:");
-				boolean disponibile = scanner.nextBoolean();
+				boolean disponibile = false;
+				try {
+					disponibile = scanner.nextBoolean();
+				} catch (InputMismatchException e) {
+					System.out.println("ERRORE : non è  stata inserita una stringa ");
+					System.exit(0);
+				}
 				scanner.nextLine();
 
 				Ingrediente ingrediente = new Ingrediente(null, nomeIngrediente, disponibile);
@@ -159,7 +170,13 @@ public class TestInterfaceUtente {
 			case 6:
 				System.out.println("Ha scelto il sesto comando per stampare un' ingrediente");
 				System.out.println("Inserisci L'id  dell' ingrediente da leggere:");
-				Long idIngrediente = scanner.nextLong();
+				Long idIngrediente = null;
+				try {
+					idIngrediente = scanner.nextLong();
+				} catch (InputMismatchException e) {
+					System.out.println("ERRORE : non è  stata inserita una stringa ");
+					System.exit(0);
+				}
 				scanner.nextLine();
 				TestMenuPizzeria.getIngrediente(ingredienteServiceInstance, idIngrediente);
 				;
@@ -167,14 +184,32 @@ public class TestInterfaceUtente {
 			case 7:
 				System.out.println("Ha scelto il settimo comando per aggiornare un ' ingrediente");
 				System.out.println("Inserisci L'id  dell ' ingrediente da aggiornare:");
-				Long idI = scanner.nextLong();
+				Long idI = null;
+				try {
+					idI = scanner.nextLong();
+				} catch (InputMismatchException e) {
+					System.out.println("ERRORE : non è  stata inserita una stringa ");
+					System.exit(0);
+				}
 				scanner.nextLine();
 
 				System.out.println("Inserisci il nome dell' ingrediente da aggiornare:");
-				String nomeI = scanner.nextLine();
+				String nomeI = null;
+				try {
+					nomeI = scanner.nextLine();
+				} catch (InputMismatchException e) {
+					System.out.println("ERRORE : non è  stata inserita una stringa ");
+					System.exit(0);
+				}
 
 				System.out.println("Inserisci true se l' ingrediente è disponibile, false se non lo è:");
-				boolean disponibileI = scanner.nextBoolean();
+				boolean disponibileI = false;
+				try {
+					disponibileI = scanner.nextBoolean();
+				} catch (InputMismatchException e) {
+					System.out.println("ERRORE : non è  stata inserita una stringa ");
+					System.exit(0);
+				}
 				scanner.nextLine();
 
 				Ingrediente ingredienteInsert = new Ingrediente(idI, nomeI, disponibileI);
@@ -184,7 +219,13 @@ public class TestInterfaceUtente {
 			case 8:
 				System.out.println("Ha scelto l' ottavo comando per eliminare un ' ingrediente");
 				System.out.println("Inserisci L'id  dell' ingrediente da eliminare:");
-				Long idIn = scanner.nextLong();
+				Long idIn;
+				try {
+					idIn = scanner.nextLong();
+				} catch (InputMismatchException e) {
+					System.out.println("ERRORE : non è  stata inserita una stringa ");
+					System.exit(0);
+				}
 				scanner.nextLine();
 				Ingrediente ingredienteE = new Ingrediente(idIn);
 				TestMenuPizzeria.rimuoviIngrediente(ingredienteServiceInstance, ingredienteE);

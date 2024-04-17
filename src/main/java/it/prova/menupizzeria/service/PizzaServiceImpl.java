@@ -10,8 +10,8 @@ import jakarta.persistence.EntityManager;
 
 public class PizzaServiceImpl implements PizzaService {
 
-	private IngredienteDAO ingredienteDAOInstance;
 	private PizzaDAO pizzaDAOInstance;
+	private IngredienteDAO ingredienteDAOInstance;
 
 	@Override
 	public List<Pizza> listAll() throws Exception {
@@ -44,6 +44,7 @@ public class PizzaServiceImpl implements PizzaService {
 			pizzaDAOInstance.setEntityManager(entityManager);
 			if (pizzaDAOInstance.get(id) == null) {
 				System.out.println("Non esiste una pizza con questo id");
+				System.exit(0);
 			}
 			return pizzaDAOInstance.get(id);
 		} catch (Exception e) {
@@ -103,10 +104,7 @@ public class PizzaServiceImpl implements PizzaService {
 			}
 
 			pizzaDAOInstance.update(pizzaInstance);
-			if (pizzaDAOInstance.exist(pizzaInstance)) {
-				System.out.println("Pizza aggiornata con successo");
-
-			}
+			System.out.println("Pizza aggiornata con successo");
 
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
@@ -117,17 +115,6 @@ public class PizzaServiceImpl implements PizzaService {
 			EntityManagerUtil.closeEntityManager(entityManager);
 		}
 
-	}
-
-	@Override
-	public void setPizzaDAO(PizzaDAO pizzaInstance) throws Exception {
-		this.pizzaDAOInstance = pizzaInstance;
-
-	}
-
-	@Override
-	public void setIngredienteDAO(IngredienteDAO ingredienteInstance) throws Exception {
-		this.ingredienteDAOInstance = ingredienteInstance;
 	}
 
 	@Override
@@ -152,10 +139,7 @@ public class PizzaServiceImpl implements PizzaService {
 			pizzaDAOInstance.setEntityManager(entityManager);
 
 			pizzaDAOInstance.insert(pizzaInstance);
-
-			if (pizzaDAOInstance.exist(pizzaInstance)) {
-				System.out.println("Pizza Inserita correttamente");
-			}
+			System.out.println("Pizza inserita con successo");
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();
@@ -165,6 +149,17 @@ public class PizzaServiceImpl implements PizzaService {
 			EntityManagerUtil.closeEntityManager(entityManager);
 		}
 
+	}
+
+	@Override
+	public void setPizzaDAO(PizzaDAO pizzaInstance) throws Exception {
+		this.pizzaDAOInstance = pizzaInstance;
+
+	}
+
+	@Override
+	public void setIngredienteDAO(IngredienteDAO ingredienteInstance) throws Exception {
+		this.ingredienteDAOInstance = ingredienteInstance;
 	}
 
 }
