@@ -219,7 +219,7 @@ public class TestInterfaceUtente {
 			case 8:
 				System.out.println("Ha scelto l' ottavo comando per eliminare un ' ingrediente");
 				System.out.println("Inserisci L'id  dell' ingrediente da eliminare:");
-				Long idIn;
+				Long idIn = null;
 				try {
 					idIn = scanner.nextLong();
 				} catch (InputMismatchException e) {
