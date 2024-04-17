@@ -1,8 +1,8 @@
 package it.prova.menupizzeria.test;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import it.prova.menupizzeria.exception.PizzeriaExceptions;
 import it.prova.menupizzeria.model.Ingrediente;
 import it.prova.menupizzeria.model.Pizza;
 import it.prova.menupizzeria.service.IngredienteService;
@@ -39,14 +39,35 @@ public class TestInterfaceUtente {
 			case 1:
 				System.out.println("Ha scelto il primo comando per creare una pizza");
 				System.out.println("Inserisci il prezzo della pizza da creare:");
-				float prezzo = scanner.nextFloat();
+				Float prezzo = null;
+				try {
+					prezzo = scanner.nextFloat();
+				} catch(InputMismatchException e){
+					System.out.println("ERRORE : non è  stato inserito un float " );
+					System.exit(0);
+				}
 				scanner.nextLine(); 
 
 				System.out.println("Inserisci il nome della pizza da creare:");
-				String nome = scanner.nextLine();
+				
+				String nome = "";
+				try {
+					nome = scanner.nextLine();
+				} catch(InputMismatchException e){
+					System.out.println("ERRORE : non è  stata inserita una stringa ");
+					System.exit(0);
+					
+				}
 
 				System.out.println("Inserisci true se la pizza è custom, false se non lo è:");
-				boolean custom = scanner.nextBoolean();
+				boolean custom = false ;
+				try {
+					custom = scanner.nextBoolean();
+				} catch(InputMismatchException e){
+					System.out.println("ERRORE : non è  stato inserito un boolean ");
+					System.exit(0);
+					
+				}
 				scanner.nextLine(); 
 
 				Pizza pizza = new Pizza(null, prezzo, nome, custom);

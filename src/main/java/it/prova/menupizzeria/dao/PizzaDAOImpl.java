@@ -12,7 +12,7 @@ public class PizzaDAOImpl implements PizzaDAO{
 	
 	
 	
-	private EntityManager entityManager;
+	private EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
 	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
@@ -56,11 +56,12 @@ public class PizzaDAOImpl implements PizzaDAO{
 
 	@Override
 	public boolean exist(Pizza pizzaInstance) throws Exception {
-		Query query = entityManager.createQuery("SELECT COUNT(p) FROM Pizza p WHERE p.nome = :nomePizza AND p.prezzo = :prezzoPizza AND p.custom = :customPizza");
+		Query query = entityManager.createQuery("SELECT COUNT(p) FROM Pizza p WHERE p.nome = :nomePizza  AND p.custom = :customPizza",Long.class);
 		query.setParameter("nomePizza", pizzaInstance.getNome());
-		 query.setParameter("prezzoPizza", pizzaInstance.getPrezzo());
 		 query.setParameter("customPizza", pizzaInstance.isCustom());
-		 if  (query.getSingleResult() != null) {
+		 Long result = (Long)query.getSingleResult();
+		 System.out.println("----------result " + result);
+		 if  (result > Long.valueOf(0)) {
 			 return true;
 		 }
 		 return false;
