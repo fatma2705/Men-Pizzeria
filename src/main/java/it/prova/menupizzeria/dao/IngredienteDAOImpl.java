@@ -1,9 +1,11 @@
 package it.prova.menupizzeria.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import it.prova.menupizzeria.model.Ingrediente;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 
@@ -122,6 +124,33 @@ public class IngredienteDAOImpl implements IngredienteDAO {
 			if (entityManager != null) {
 				entityManager.close();
 			}
+		}
+	}
+
+	@Override
+	public void deleteIngredienti(Set<Ingrediente> ingredienti) throws Exception {
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+
+		try {
+			transaction.begin();
+
+			for (Ingrediente ingredienteInstance : ingredienti) {
+				if (ingredienteInstance == null) {
+					throw new Exception("Impossibile eseguire la delete nel DB. Input non valido");
+				}
+				Ingrediente mergedIngrediente = entityManager.merge(ingredienteInstance);
+				entityManager.remove(mergedIngrediente);
+			}
+
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction.isActive()) {
+				transaction.rollback();
+			}
+			throw e;
+		} finally {
+			entityManager.close();
 		}
 	}
 

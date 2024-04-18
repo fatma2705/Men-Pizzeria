@@ -61,17 +61,23 @@ public class PizzaServiceImpl implements PizzaService {
 		EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
 		try {
-			if (pizzaInstance.equals(null)) {
+			if (pizzaInstance == null) {
 				System.out.println("ERRORE: id pizza non inserito");
 				System.exit(0);
 			}
 			entityManager.getTransaction().begin();
 
 			pizzaDAOInstance.setEntityManager(entityManager);
-			if (pizzaDAOInstance.get(pizzaInstance.getId()) == null) {
+			Pizza existingPizza = pizzaDAOInstance.get(pizzaInstance.getId());
+			if (existingPizza == null) {
 				System.out.println("ERRORE: Non esiste una pizza con questo id ");
 				System.exit(0);
 			}
+			pizzaDAOInstance.deletPizzaIngredienteAssociazione(existingPizza);
+			System.out.println("Associazione tra pizza e ingrediente rimossa");
+
+			ingredienteDAOInstance.deleteIngredienti(existingPizza.getIngredienti());
+			System.out.println("Ingredienti rimossi");
 
 			pizzaDAOInstance.delete(pizzaInstance);
 			System.out.println("Pizza rimossa con successo");
@@ -84,7 +90,6 @@ public class PizzaServiceImpl implements PizzaService {
 		} finally {
 			EntityManagerUtil.closeEntityManager(entityManager);
 		}
-
 	}
 
 	@Override
@@ -140,17 +145,17 @@ public class PizzaServiceImpl implements PizzaService {
 			pizzaDAOInstance.insert(pizzaInstance);
 			for (String nome : listaIngredienti) {
 				if (ingredienteDAOInstance.getByNome(nome) == null) {
-					Ingrediente ingrediente = new Ingrediente(null,nome,true);
+					Ingrediente ingrediente = new Ingrediente(null, nome, true);
 					ingredienteDAOInstance.insert(ingrediente);
 					pizzaDAOInstance.setEntityManager(entityManager);
-					pizzaDAOInstance.insertIngrediente(pizzaInstance,ingrediente);
-			}else {
-				pizzaDAOInstance.setEntityManager(entityManager);
-				pizzaDAOInstance.insertIngrediente(pizzaInstance,ingredienteDAOInstance.getByNome(nome));
-				System.out.println("Pizza inserita con successo");
+					pizzaDAOInstance.insertIngrediente(pizzaInstance, ingrediente);
+				} else {
+					pizzaDAOInstance.setEntityManager(entityManager);
+					pizzaDAOInstance.insertIngrediente(pizzaInstance, ingredienteDAOInstance.getByNome(nome));
+					System.out.println("Pizza inserita con successo");
+				}
 			}
-			}
-			
+
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();
