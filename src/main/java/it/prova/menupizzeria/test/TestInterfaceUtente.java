@@ -69,33 +69,30 @@ public class TestInterfaceUtente {
 					System.exit(0);
 
 				}
-				 System.out.print("Quanti ingredienti vuoi aggiungere? ");
-			        int numIngredienti = 0;
-			        boolean inputValido = false;
-			        while (!inputValido) {
-			            try {
-			                numIngredienti = Integer.parseInt(scanner.nextLine());
-			                inputValido = true;
-			            } catch (NumberFormatException e) {
-			                System.out.println("Inserisci un numero valido.");
-			            }
-			        }
+				System.out.print("Quanti ingredienti vuoi aggiungere? ");
+				int numIngredienti = 0;
+				boolean inputValido = false;
+				while (!inputValido) {
+					try {
+						numIngredienti = Integer.parseInt(scanner.nextLine());
+						inputValido = true;
+					} catch (NumberFormatException e) {
+						System.out.println("Inserisci un numero valido.");
+					}
+				}
 
-			       
-			        List<String> ingredienti = new ArrayList<>();
+				List<String> ingredienti = new ArrayList<>();
 
-			       
-			        for (int i = 0; i < numIngredienti; i++) {
-			            System.out.print("Inserisci l'ingrediente #" + (i + 1) + ": ");
-			            String ingrediente = scanner.nextLine();
-			            ingredienti.add(ingrediente);
-			        }
+				for (int i = 0; i < numIngredienti; i++) {
+					System.out.print("Inserisci l'ingrediente #" + (i + 1) + ": ");
+					String ingrediente = scanner.nextLine();
+					ingredienti.add(ingrediente);
+				}
 
-			        
-			        System.out.println("Gli ingredienti inseriti sono:");
-			        for (String ingrediente : ingredienti) {
-			            System.out.println("- " + ingrediente);
-			        }
+				System.out.println("Gli ingredienti inseriti sono:");
+				for (String ingrediente : ingredienti) {
+					System.out.println("- " + ingrediente);
+				}
 				scanner.nextLine();
 
 				Pizza pizza = new Pizza(null, prezzo, nome, custom);
@@ -117,45 +114,75 @@ public class TestInterfaceUtente {
 
 			case 3:
 				System.out.println("Ha scelto il terzo comando per aggiornare una pizza");
-				System.out.println("Inserisci L'id  della pizza da aggiornare:");
+				System.out.println("Inserisci l'id della pizza da aggiornare:");
 				Long idP = null;
 				try {
 					idP = scanner.nextLong();
 				} catch (InputMismatchException e) {
-					System.out.println("ERRORE : non è  stato inserito un long ");
+					System.out.println("ERRORE: Non è stato inserito un long valido");
 					System.exit(0);
 				}
 				scanner.nextLine();
+
 				System.out.println("Inserisci il nuovo prezzo della pizza da aggiornare:");
 				Float prezzoP = null;
 				try {
 					prezzoP = scanner.nextFloat();
 				} catch (InputMismatchException e) {
-					System.out.println("ERRORE : non è  stato inserito un float ");
+					System.out.println("ERRORE: Non è stato inserito un float valido");
 					System.exit(0);
 				}
 				scanner.nextLine();
+
 				System.out.println("Inserisci il nuovo nome della pizza da aggiornare:");
 				String nomeP = "";
 				try {
 					nomeP = scanner.nextLine();
 				} catch (InputMismatchException e) {
-					System.out.println("ERRORE : non è  stata inserita una stringa ");
+					System.out.println("ERRORE: Non è stata inserita una stringa valida");
 					System.exit(0);
 				}
+
 				System.out.println("Inserisci true se la pizza è custom, false se non lo è:");
 				boolean customP = false;
 				try {
 					customP = scanner.nextBoolean();
 				} catch (InputMismatchException e) {
-					System.out.println("ERRORE : non è  stato inserito un boolean ");
+					System.out.println("ERRORE: Non è stato inserito un boolean valido");
 					System.exit(0);
 				}
 				scanner.nextLine();
+
+				System.out.println("Quanti ingredienti vuoi aggiornare?");
+				int nuMIngredienti = 0;
+				boolean inpuTValido = false;
+				while (!inpuTValido) {
+					try {
+						nuMIngredienti = Integer.parseInt(scanner.nextLine());
+						inpuTValido = true;
+					} catch (NumberFormatException e) {
+						System.out.println("Inserisci un numero valido.");
+					}
+				}
+
+				List<String> ingredientiI = new ArrayList<>();
+
+				for (int i = 0; i < nuMIngredienti; i++) {
+					System.out.print("Inserisci l'ingrediente #" + (i + 1) + ": ");
+					String ingrediente = scanner.nextLine();
+					ingredientiI.add(ingrediente);
+				}
+
+				System.out.println("Gli ingredienti inseriti sono:");
+				for (String ingrediente : ingredientiI) {
+					System.out.println("- " + ingrediente);
+				}
+				scanner.nextLine();
 				Pizza pizzaP = new Pizza(idP, prezzoP, nomeP, customP);
-				TestMenuPizzeria.aggiornaPizza(pizzaServiceInstance, pizzaP);
+				TestMenuPizzeria.aggiornaPizza(pizzaServiceInstance, pizzaP, ingredientiI);
 
 				break;
+
 			case 4:
 				System.out.println("Ha scelto il quarto comando per eliminare una pizza");
 				System.out.println("Inserisci L'id  della pizza da eliminare:");
@@ -266,8 +293,10 @@ public class TestInterfaceUtente {
 			default:
 				System.out.println("Opzione non valida. Riprova.");
 			}
-}
+		}
 
-System.out.println("Grazie per aver usato l'interfaccia utente. Arrivederci!");scanner.close();}
+		System.out.println("Grazie per aver usato l'interfaccia utente. Arrivederci!");
+		scanner.close();
+	}
 
 }

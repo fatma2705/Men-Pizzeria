@@ -31,12 +31,8 @@ public class Pizza {
 	private boolean custom;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "pizza_ingrediente",
-        joinColumns = @JoinColumn(name = "id_pizza"),
-        inverseJoinColumns = @JoinColumn(name = "id_ingrediente")
-    )
-    private Set<Ingrediente> ingredienti = new HashSet<>();
+	@JoinTable(name = "pizza_ingrediente", joinColumns = @JoinColumn(name = "id_pizza"), inverseJoinColumns = @JoinColumn(name = "id_ingrediente"))
+	private Set<Ingrediente> ingredienti = new HashSet<>();
 
 	public Pizza() {
 
@@ -91,14 +87,14 @@ public class Pizza {
 		return "Pizza [id=" + id + ", prezzo=" + prezzo + ", nome=" + nome + ", custom=" + custom + "]"
 				+ "Ingredienti : " + ingredienti.toString();
 	}
-	
+
 	public Set<Ingrediente> getIngredienti() {
-        return ingredienti;
-    }
-	
-	 public void addIngrediente(Ingrediente ingrediente) {
-	        ingredienti.add(ingrediente);
-	        ingrediente.getPizze().add(this); 
-	    }
+		return ingredienti;
+	}
+
+	public void addIngrediente(Ingrediente ingrediente) {
+		ingredienti.add(ingrediente);
+		ingrediente.getPizze().add(this);
+	}
 
 }

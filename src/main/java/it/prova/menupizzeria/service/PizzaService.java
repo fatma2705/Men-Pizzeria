@@ -1,6 +1,7 @@
 package it.prova.menupizzeria.service;
 
 import java.util.List;
+import java.util.Set;
 
 import it.prova.menupizzeria.dao.IngredienteDAO;
 import it.prova.menupizzeria.dao.PizzaDAO;
@@ -17,7 +18,7 @@ public interface PizzaService {
 
 	public void rimuovi(Pizza pizzaInstance) throws Exception;
 
-	public void aggiorna(Pizza pizzaInstance) throws Exception;
+	public void aggiorna(Pizza pizzaInstance, List<String> listaIngredienti) throws Exception;
 
 	public void setPizzaDAO(PizzaDAO pizzaInstance) throws Exception;
 

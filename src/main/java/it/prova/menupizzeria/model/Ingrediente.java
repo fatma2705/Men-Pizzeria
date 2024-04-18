@@ -27,7 +27,8 @@ public class Ingrediente {
 	private boolean disponibile;
 
 	@ManyToMany(mappedBy = "ingredienti", fetch = FetchType.EAGER)
-    private Set<Pizza> pizze = new HashSet<>();
+	private Set<Pizza> pizze = new HashSet<>();
+
 	public Ingrediente() {
 
 	}

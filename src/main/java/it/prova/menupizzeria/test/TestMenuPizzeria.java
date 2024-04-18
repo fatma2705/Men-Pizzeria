@@ -24,11 +24,11 @@ public class TestMenuPizzeria {
 		}
 	}
 
-	public static void inserisciPizza(PizzaService pizzaInstance, Pizza pizza,List<String> ingredienti) {
+	public static void inserisciPizza(PizzaService pizzaInstance, Pizza pizza, List<String> ingredienti) {
 		System.out.println(" ----------- Test Inserisci pizza -------------");
 
 		try {
-			pizzaInstance.inserieciElemento(pizza,ingredienti);
+			pizzaInstance.inserieciElemento(pizza, ingredienti);
 
 			System.out.println(" ----------- Test Pizza inserita con successo ----");
 
@@ -37,11 +37,11 @@ public class TestMenuPizzeria {
 		}
 	}
 
-	public static void aggiornaPizza(PizzaService pizzaInstance, Pizza pizza) {
+	public static void aggiornaPizza(PizzaService pizzaInstance, Pizza pizza, List<String> ingredienti) {
 		System.out.println(" -------------- Aggiorna Pizza  -----------");
 
 		try {
-			pizzaInstance.aggiorna(pizza);
+			pizzaInstance.aggiorna(pizza, ingredienti);
 			System.out.println(" ----------- Pizza aggiornata con successo ----");
 
 		} catch (Exception e) {

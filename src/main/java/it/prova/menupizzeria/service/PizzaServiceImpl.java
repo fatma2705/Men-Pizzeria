@@ -1,6 +1,7 @@
 package it.prova.menupizzeria.service;
 
 import java.util.List;
+import java.util.Set;
 
 import it.prova.menupizzeria.dao.EntityManagerUtil;
 import it.prova.menupizzeria.dao.IngredienteDAO;
@@ -93,7 +94,7 @@ public class PizzaServiceImpl implements PizzaService {
 	}
 
 	@Override
-	public void aggiorna(Pizza pizzaInstance) throws Exception {
+	public void aggiorna(Pizza pizzaInstance, List<String> listaIngredienti) throws Exception {
 		EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
 		try {
@@ -104,12 +105,27 @@ public class PizzaServiceImpl implements PizzaService {
 			entityManager.getTransaction().begin();
 
 			pizzaDAOInstance.setEntityManager(entityManager);
-			if (!(pizzaDAOInstance.exist(pizzaInstance))) {
+			if (pizzaDAOInstance.get(pizzaInstance.getId()) == null) {
 				System.out.println("ERRORE: Non esiste una pizza con questi dati ");
 				System.exit(0);
 			}
-
+			pizzaDAOInstance.deletPizzaIngredienteAssociazione(pizzaInstance);
+			System.out.println("relazione tra pizza e ingrediente eliminata");
 			pizzaDAOInstance.update(pizzaInstance);
+			System.out.println("pizza aggiornta");
+			for (String nome : listaIngredienti) {
+				if (ingredienteDAOInstance.getByNome(nome) == null) {
+					Ingrediente ingrediente = new Ingrediente(null, nome, true);
+					ingredienteDAOInstance.insert(ingrediente);
+					pizzaDAOInstance.setEntityManager(entityManager);
+					pizzaDAOInstance.insertIngrediente(pizzaInstance, ingrediente);
+				} else {
+					pizzaDAOInstance.setEntityManager(entityManager);
+					pizzaDAOInstance.insertIngrediente(pizzaInstance, ingredienteDAOInstance.getByNome(nome));
+					System.out.println("Pizza inserita con successo");
+				}
+			}
+
 			System.out.println("Pizza aggiornata con successo");
 
 			entityManager.getTransaction().commit();
