@@ -1,6 +1,8 @@
 package it.prova.menupizzeria.test;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import it.prova.menupizzeria.model.Ingrediente;
@@ -67,10 +69,37 @@ public class TestInterfaceUtente {
 					System.exit(0);
 
 				}
+				 System.out.print("Quanti ingredienti vuoi aggiungere? ");
+			        int numIngredienti = 0;
+			        boolean inputValido = false;
+			        while (!inputValido) {
+			            try {
+			                numIngredienti = Integer.parseInt(scanner.nextLine());
+			                inputValido = true;
+			            } catch (NumberFormatException e) {
+			                System.out.println("Inserisci un numero valido.");
+			            }
+			        }
+
+			       
+			        List<String> ingredienti = new ArrayList<>();
+
+			       
+			        for (int i = 0; i < numIngredienti; i++) {
+			            System.out.print("Inserisci l'ingrediente #" + (i + 1) + ": ");
+			            String ingrediente = scanner.nextLine();
+			            ingredienti.add(ingrediente);
+			        }
+
+			        
+			        System.out.println("Gli ingredienti inseriti sono:");
+			        for (String ingrediente : ingredienti) {
+			            System.out.println("- " + ingrediente);
+			        }
 				scanner.nextLine();
 
 				Pizza pizza = new Pizza(null, prezzo, nome, custom);
-				TestMenuPizzeria.inserisciPizza(pizzaServiceInstance, pizza);
+				TestMenuPizzeria.inserisciPizza(pizzaServiceInstance, pizza, ingredienti);
 
 				break;
 			case 2:
@@ -237,10 +266,8 @@ public class TestInterfaceUtente {
 			default:
 				System.out.println("Opzione non valida. Riprova.");
 			}
-		}
+}
 
-		System.out.println("Grazie per aver usato l'interfaccia utente. Arrivederci!");
-		scanner.close();
-	}
+System.out.println("Grazie per aver usato l'interfaccia utente. Arrivederci!");scanner.close();}
 
 }

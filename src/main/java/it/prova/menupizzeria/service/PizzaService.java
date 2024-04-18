@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.prova.menupizzeria.dao.IngredienteDAO;
 import it.prova.menupizzeria.dao.PizzaDAO;
+import it.prova.menupizzeria.model.Ingrediente;
 import it.prova.menupizzeria.model.Pizza;
 
 public interface PizzaService {
@@ -12,7 +13,7 @@ public interface PizzaService {
 
 	public Pizza listElemento(Long id) throws Exception;
 
-	public void inserieciElemento(Pizza pizzaInstance) throws Exception;
+	public void inserieciElemento(Pizza pizzaInstance, List<String> listaIngredienti) throws Exception;
 
 	public void rimuovi(Pizza pizzaInstance) throws Exception;
 

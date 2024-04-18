@@ -24,11 +24,11 @@ public class TestMenuPizzeria {
 		}
 	}
 
-	public static void inserisciPizza(PizzaService pizzaInstance, Pizza pizza) {
+	public static void inserisciPizza(PizzaService pizzaInstance, Pizza pizza,List<String> ingredienti) {
 		System.out.println(" ----------- Test Inserisci pizza -------------");
 
 		try {
-			pizzaInstance.inserieciElemento(pizza);
+			pizzaInstance.inserieciElemento(pizza,ingredienti);
 
 			System.out.println(" ----------- Test Pizza inserita con successo ----");
 

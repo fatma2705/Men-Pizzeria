@@ -5,6 +5,7 @@ import java.util.List;
 import it.prova.menupizzeria.dao.EntityManagerUtil;
 import it.prova.menupizzeria.dao.IngredienteDAO;
 import it.prova.menupizzeria.dao.PizzaDAO;
+import it.prova.menupizzeria.model.Ingrediente;
 import it.prova.menupizzeria.model.Pizza;
 import jakarta.persistence.EntityManager;
 
@@ -118,7 +119,7 @@ public class PizzaServiceImpl implements PizzaService {
 	}
 
 	@Override
-	public void inserieciElemento(Pizza pizzaInstance) throws Exception {
+	public void inserieciElemento(Pizza pizzaInstance, List<String> listaIngredienti) throws Exception {
 		EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
 		try {
@@ -136,10 +137,20 @@ public class PizzaServiceImpl implements PizzaService {
 				System.out.println("ERRORE: già esiste una pizza con gli stessi dati");
 				System.exit(0);
 			}
-			pizzaDAOInstance.setEntityManager(entityManager);
-
 			pizzaDAOInstance.insert(pizzaInstance);
-			System.out.println("Pizza inserita con successo");
+			for (String nome : listaIngredienti) {
+				if (ingredienteDAOInstance.getByNome(nome) == null) {
+					Ingrediente ingrediente = new Ingrediente(null,nome,true);
+					ingredienteDAOInstance.insert(ingrediente);
+					pizzaDAOInstance.setEntityManager(entityManager);
+					pizzaDAOInstance.insertIngrediente(pizzaInstance,ingrediente);
+			}else {
+				pizzaDAOInstance.setEntityManager(entityManager);
+				pizzaDAOInstance.insertIngrediente(pizzaInstance,ingredienteDAOInstance.getByNome(nome));
+				System.out.println("Pizza inserita con successo");
+			}
+			}
+			
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();

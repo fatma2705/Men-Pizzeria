@@ -5,6 +5,7 @@ import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,9 +26,8 @@ public class Ingrediente {
 	@Column(name = "disponibile")
 	private boolean disponibile;
 
-	@ManyToMany(mappedBy = "ingredienti")
-	private Set<Pizza> pizze = new HashSet<>();
-
+	@ManyToMany(mappedBy = "ingredienti", fetch = FetchType.EAGER)
+    private Set<Pizza> pizze = new HashSet<>();
 	public Ingrediente() {
 
 	}
@@ -65,6 +65,15 @@ public class Ingrediente {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Set<Pizza> getPizze() {
+		return pizze;
+	}
+
+	public void addPizza(Pizza pizza) {
+		pizze.add(pizza);
+		pizza.getIngredienti().add(this);
 	}
 
 	@Override
